@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Lista";
+}
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID Broker</th>
+                <th>Nombre Broker</th>
+                <th>Valor Payback</th>
+                <th>Valor VAN</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var pageSize = 10; // número de elementos por página
+                var pageNumber = ViewContext.HttpContext.Request.Query["page"]; // obtener el número de página actual de la solicitud
+                if (string.IsNullOrEmpty(pageNumber))
+                {
+                    pageNumber = "1";
+                }
+                int currentPage = Int32.Parse(pageNumber);
+                var startIndex = (currentPage - 1) * pageSize;
+                var endIndex = Math.Min(startIndex + pageSize, Model.Count);
+
+                for (int i = startIndex; i < endIndex; i++)
+                {
+                    var item = Model[i];
+                    <tr>
+                        <td>@item.BrokerId</td>
+                        <td>@item.BrokerName</td>
+                        <td>@item.ValuePayback</td>
+                        <td>@item.ValueVan</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            @{
+                var pageCount = (int)Math.Ceiling((double)Model.Count / pageSize); // calcular el número total de páginas
+                for (int i = 1; i <= pageCount; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link" href="?page=@i">@i</a>
+                    </li>
+                }
+            }
+        </ul>
+    </nav>
+</div>

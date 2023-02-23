@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Comparar";
+}
+<center>
+    <h1>Comparar entre dos alternativas de brokers: </h1>
+
+@using (Html.BeginForm())
+{
+
+    <div class="list_manage">
+        @Html.Label("Broker 1:")
+        @Html.DropDownList("broker1Selection", (SelectList)ViewBag.List)
+    </div>
+    <div class="list_manage">
+        @Html.Label("Broker 2:")
+        @Html.DropDownList("broker2Selection", (SelectList)ViewBag.List)
+    </div>
+    <div class="button_compare">
+        <input type="submit" value="Comparar" />
+    </div>
+}
+</center>
+
+@if (ViewBag.ResultVan != null && ViewBag.ResultPay != null)
+{
+    <center>
+        <div>
+            @ViewBag.ResultVan
+        </div>
+        <div>
+            @ViewBag.ResultPay
+        </div>
+    </center>
+}
