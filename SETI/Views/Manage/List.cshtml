@@ -14,8 +14,8 @@
         </thead>
         <tbody>
             @{
-                var pageSize = 10; // número de elementos por página
-                var pageNumber = ViewContext.HttpContext.Request.Query["page"]; // obtener el número de página actual de la solicitud
+                var pageSize = 10;
+                var pageNumber = ViewContext.HttpContext.Request.Query["page"];
                 if (string.IsNullOrEmpty(pageNumber))
                 {
                     pageNumber = "1";
@@ -37,12 +37,10 @@
             }
         </tbody>
     </table>
-
-    <!-- Paginación -->
     <nav>
         <ul class="pagination justify-content-center">
             @{
-                var pageCount = (int)Math.Ceiling((double)Model.Count / pageSize); // calcular el número total de páginas
+                var pageCount = (int)Math.Ceiling((double)Model.Count / pageSize);
                 for (int i = 1; i <= pageCount; i++)
                 {
                     <li class="page-item @(i == currentPage ? "active" : "")">
